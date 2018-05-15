@@ -46,7 +46,7 @@ const Container2 = styled('div').attrs({
   data-id: 'add-dataset-to-styled-component_Container2'
 })\`\`;
 
-const Container3 = require('styled-components')('div').attrs({
+const Container3 = require('styled-components').default('div').attrs({
   data-id: 'add-dataset-to-styled-component_Container3'
 })\`\`;"
 `;
@@ -69,4 +69,22 @@ const Container4 = styled('div').attrs({ 'data-test': 'test' }).attrs({
 const Container3 = styled(Container).attrs({ 'data-test': 'test' }).attrs({
   data-id: 'add-dataset-to-styled-component-with-attrs_Container3'
 })\`\`;"
+`;
+
+exports[`should transform styled-component should ignore adding dataset 1`] = `
+"import styled, { css, injectGlobal, isStyledComponent, keyframes } from 'styled-components';
+
+const Container = styled.div.attrs({
+  data-test-key: 'ignore-adding-dataset_Container'
+})\`\`;
+
+const style = css\`\`;
+
+const keyframe = keyframes\`\`;
+
+injectGlobal\`\`;
+
+isStyledComponent(Container);
+
+const Container1 = notStyled.div\`\`;"
 `;

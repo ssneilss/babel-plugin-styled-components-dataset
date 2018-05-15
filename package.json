@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-styled-component-dataset",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Add custom dataset to styled-components for better debuging and testing ",
   "main": "lib/index.js",
   "files": [

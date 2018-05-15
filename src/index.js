@@ -1,17 +1,54 @@
 import { basename, extname, dirname } from 'path';
 import * as t from 'babel-types';
 
-const isStyled = (state) => {
-  let sourceValue;
+const importLocalName = (name, state) => {
+  let localName = name === 'default' ? 'styled' : name;
+
   state.file.path.traverse({
     ImportDeclaration: {
       exit(path) {
         const { node } = path;
-        sourceValue = node.source.value;
+
+        if (node.source.value === 'styled-components') {
+          path.get('specifiers').forEach((specifier) => {
+            if (specifier.isImportDefaultSpecifier()) {
+              localName = specifier.node.local.name;
+            }
+
+            if (specifier.isImportSpecifier() && specifier.node.imported.name === name) {
+              localName = specifier.node.local.name;
+            }
+
+            if (specifier.isImportNamespaceSpecifier()) {
+              localName = specifier.node.local.name;
+            }
+          });
+        }
       },
     },
   });
-  return sourceValue === 'styled-components';
+
+  return localName;
+};
+
+const isStyled = (tag, state) => {
+  if (
+    t.isCallExpression(tag) &&
+    t.isMemberExpression(tag.callee) &&
+    tag.callee.property.name !== 'default' /** ignore default for #93 below */
+  ) {
+    // styled.something()
+    return isStyled(tag.callee.object, state);
+  }
+
+  return (
+    (t.isMemberExpression(tag) && tag.object.name === importLocalName('default', state)) ||
+    (t.isCallExpression(tag) && tag.callee.name === importLocalName('default', state)) ||
+    (t.isCallExpression(tag) &&
+      t.isCallExpression(tag.callee.object) &&
+      tag.callee.object.callee.name === 'require' &&
+      tag.callee.object.arguments[0].value === 'styled-components')
+  );
 };
 
 const getPrefix = (state) => {
@@ -61,7 +98,7 @@ export default function () {
   return {
     visitor: {
       TaggedTemplateExpression(path, state) {
-        if (!isStyled(state)) return;
+        if (!isStyled(path.node.tag, state)) return;
 
         const key = state.opts.key || 'data-id';
         const prefix = getPrefix(state);

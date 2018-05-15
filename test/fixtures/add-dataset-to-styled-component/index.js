@@ -4,4 +4,4 @@ const Container1 = styled.div``;
 
 const Container2 = styled('div')``;
 
-const Container3 = require('styled-components')('div')``;
+const Container3 = require('styled-components').default('div')``;
