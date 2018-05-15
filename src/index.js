@@ -100,7 +100,7 @@ export default function () {
       TaggedTemplateExpression(path, state) {
         if (!isStyled(path.node.tag, state)) return;
 
-        const key = state.opts.key || 'data-id';
+        const key = state.opts.key ? `'${state.opts.key}'` : "'data-id'";
         const prefix = getPrefix(state);
         const name = getName(state, path);
 
