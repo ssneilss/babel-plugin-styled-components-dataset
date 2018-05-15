@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should transform styled-component should add custom dataset to styled component 1`] = `
+"import s from 'styled-components';
+
+const Container1 = s.div.attrs({
+  data-test-key: 'add-custom-dataset-to-styled-component_Container1'
+})\`\`;"
+`;
+
+exports[`should transform styled-component should add dataset to hoisted styled component 1`] = `
+"import s from 'styled-components';
+
+const Container1 = s.div.attrs({
+  data-id: 'add-dataset-to-hoisted-styled-component_Container1'
+})\`\`;
+
+const Container2 = true ? s.div.attrs({
+  data-id: 'add-dataset-to-hoisted-styled-component_Container2'
+})\`\` : s.div.attrs({
+  data-id: 'add-dataset-to-hoisted-styled-component_Container2'
+})\`\`;
+
+const components = {
+  Container1,
+  Container2
+};"
+`;
+
+exports[`should transform styled-component should add dataset to imported styled component 1`] = `
+"const Container1 = s.div.attrs({
+  data-id: 'add-dataset-to-imported-styled-component_Container1'
+})\`\`;
+
+import { default as s, css } from 'styled-components';"
+`;
+
+exports[`should transform styled-component should add dataset to styled component 1`] = `
+"import styled from 'styled-components';
+
+const Container1 = styled.div.attrs({
+  data-id: 'add-dataset-to-styled-component_Container1'
+})\`\`;
+
+const Container2 = styled('div').attrs({
+  data-id: 'add-dataset-to-styled-component_Container2'
+})\`\`;
+
+const Container3 = require('styled-components')('div').attrs({
+  data-id: 'add-dataset-to-styled-component_Container3'
+})\`\`;"
+`;
+
+exports[`should transform styled-component should add dataset to styled component with attrs 1`] = `
+"import styled from 'styled-components';
+
+const Container1 = styled.div.attrs({ 'data-test': 'test' }).attrs({
+  data-id: 'add-dataset-to-styled-component-with-attrs_Container1'
+})\`\`;
+
+const Container2 = styled.div.withConfig({ prop: 'value' }).attrs({ 'data-test': 'test' }).attrs({
+  data-id: 'add-dataset-to-styled-component-with-attrs_Container2'
+})\`\`;
+
+const Container4 = styled('div').attrs({ 'data-test': 'test' }).attrs({
+  data-id: 'add-dataset-to-styled-component-with-attrs_Container4'
+})\`\`;
+
+const Container3 = styled(Container).attrs({ 'data-test': 'test' }).attrs({
+  data-id: 'add-dataset-to-styled-component-with-attrs_Container3'
+})\`\`;"
+`;

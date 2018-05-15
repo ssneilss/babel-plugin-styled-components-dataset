@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    [
+      "../../../src",
+      {
+        "key": "data-test-key"
+      }
+    ]
+  ]
+}
