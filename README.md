@@ -16,9 +16,30 @@ Add the following line to your babel configuration:
 
 ```JSON
 {
-  "plugins": ["babel-plugin-styled-components-dataset"]
+  "plugins": ["styled-components-dataset"]
 }
 ```
+
+> Note
+The plugin should always placed before `babel-plugin-styled-components` for now.
+
+Example:
+```JSON
+{
+   "plugins": [
+       "styled-components-dataset",
+       [
+           "styled-components",
+           {
+               "ssr": true,
+               "displayName": false,
+               "minify": true,
+           }
+       ]
+   ]
+}
+```
+
 
 ## Options
 
@@ -34,7 +55,7 @@ in **.babelrc**
 
 ```JSON
 {
-  "plugins": [["babel-plugin-styled-components-dataset", { "key": "data-test-key" }]]
+  "plugins": [["styled-components-dataset", { "key": "data-test-key" }]]
 }
 ```
 
