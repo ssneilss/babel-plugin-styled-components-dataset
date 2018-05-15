@@ -1,8 +1,11 @@
 {
   "name": "babel-plugin-styled-components-dataset",
-  "version": "0.1.4",
-  "description": "Add custom dataset to styled-components for better debuging and testing ",
-  "repository": "ssneilss/babel-plugin-styled-components-dataset",
+  "version": "0.1.5",
+  "description": "Add custom dataset to styled-components for better debuging and testing",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ssneilss/babel-plugin-styled-components-dataset.git"
+  },
   "main": "lib/index.js",
   "files": [
     "lib"
